@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 1. make a computer choice function by using Math.random() and getting a number from 0 to 2
+    //0 -> 'rock', 1-> 'paper', 2-> 'scissors', return appropriately depending on what number is put out
+
+    function computerPlay(){
+      let computerChoice = Math.floor(Math.random()*3)
+
+      return  computerChoice === 0? 'Rock':
+              computerChoice === 1? 'Paper':
+              computerChoice === 2? 'Scissors' : null
+    }
+
+    //2. make a user choice function, get data out of prompt and store it in a variable 'userChoice'
+
+    function userPlay (){
+      // user enters move
+      let userChoice = prompt('Enter your move')
+      //bring it to lowerCase
+      userChoice.toLowerCase()
+      //now keep asking for move until we get one of 3 options
+      while (userChoice !== 'rock' && userChoice !== 'paper' && userChoice !== 'scissors'){
+        userChoice = prompt('Enter your move')
+      } 
+      return userChoice[0].toUpperCase() + userChoice.substring(1) 
+     
+  }
+  function playRound(playerChoice, computerChoice){
+
+    // if userPlay === computerPlay -> its a tie
+    // if userPlay === rock and computerPlay === scissors -> user Wins => ${userplay} beats ${computerPlay}
+    // if userPlay === paper and computerPlay === rock -> user wins => ${userplay} beats ${computerPlay}
+    // if userPlay === scissors and computerPlay === paper -> user Wins => ${userplay} beats ${computerPlay}
+    // everything else -> computer Wins => ${computerPlay} beats ${userPlay}
+    if (playerChoice === computerChoice) {
+      return `It's a tie!`
+    } else if (playerChoice === 'Rock' && computerChoice === 'Scissors'){
+      return `You Win!`
+    } else if (playerChoice === 'Paper' && computerChoice === 'Rock'){
+      return `You Win!`
+    } else if (playerChoice === 'Scissors' && computerChoice === 'Paper'){
+      return `You Win!`
+    }else {
+      return `You Lose!`
+    }
+  }
+
+  
+  function game(){
+    let user_wins = 0
+    let computer_wins = 0
+
+    // make a for loop that loops 5 times
+    // update the score for each loop
+    // once looping is finished check the score, who has bigger number is the winner
+    for (let i = 0; i < 5; i++){
+      let playerChoice = userPlay()
+      let computerChoice = computerPlay()
+      let oneRound = playRound(playerChoice, computerChoice)
+      
+      if (oneRound === `You Win!`){
+        user_wins += 1
+        console.log(`You Win! ${playerChoice} beats ${computerChoice}`)
+        console.log(`Current score is User: ${user_wins} to Computer: ${computer_wins}`)
+      }else if (oneRound === `You Lose!`){
+        computer_wins +=1
+        console.log(`You Lose! ${computerChoice} beats ${playerChoice}`)
+        console.log(`Current score is User: ${user_wins} to Computer: ${computer_wins}`)
+      }else {
+        user_wins += 1
+        computer_wins +=1
+        console.log(`It's a tie! ${playerChoice} is equal to ${computerChoice}`)
+        console.log(`Current score is User: ${user_wins} to Computer: ${computer_wins}`)
+      }
+    }
+    if (user_wins > computer_wins){
+      return `You win the game! ${user_wins} to ${computer_wins}`
+    }else if (computer_wins > user_wins){
+      return `You lose the game! ${computer_wins} to ${user_wins}`
+    }
+  }
+
+  console.log(game())
+    
+
+  </script>
+</body>
+</html>
