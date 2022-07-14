@@ -7,6 +7,12 @@
   <title>Document</title>
 </head>
 <body>
+  <button id="rock">Click for Rock</button>
+  <button id="paper">Click for Paper</button>
+  <button id="scissors">Click for Scissors</button>
+
+  <div id="text"></div>
+  <div id="result"></div>
   <script>
     // 1. make a computer choice function by using Math.random() and getting a number from 0 to 2
     //0 -> 'rock', 1-> 'paper', 2-> 'scissors', return appropriately depending on what number is put out
@@ -19,39 +25,67 @@
               computerChoice === 2? 'Scissors' : null
     }
 
-    //2. make a user choice function, get data out of prompt and store it in a variable 'userChoice'
+  
+  
+  //Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection every time a button is clicked. (you can keep the console.logs for this step)
+  let userWins = 0
+  let computerWins = 0
+  
 
-    function userPlay (){
-      // user enters move
-      let userChoice = prompt('Enter your move')
-      //bring it to lowerCase
-      userChoice.toLowerCase()
-      //now keep asking for move until we get one of 3 options
-      while (userChoice !== 'rock' && userChoice !== 'paper' && userChoice !== 'scissors'){
-        userChoice = prompt('Enter your move')
-      } 
-      return userChoice[0].toUpperCase() + userChoice.substring(1) 
-     
-  }
+  const rock = document.getElementById('rock')
+  rock.addEventListener('click', function(){
+  
+   playRound('Rock',computerPlay())
+  })
+  const scissors = document.getElementById('scissors')
+  scissors.addEventListener('click', function(){
+
+  playRound('Scissors',computerPlay())
+  })
+  const paper = document.getElementById('paper')
+  paper.addEventListener('click', function(){
+
+  playRound('Paper',computerPlay())
+  })
+
+
+  
   function playRound(playerChoice, computerChoice){
 
-    // if userPlay === computerPlay -> its a tie
-    // if userPlay === rock and computerPlay === scissors -> user Wins => ${userplay} beats ${computerPlay}
-    // if userPlay === paper and computerPlay === rock -> user wins => ${userplay} beats ${computerPlay}
-    // if userPlay === scissors and computerPlay === paper -> user Wins => ${userplay} beats ${computerPlay}
-    // everything else -> computer Wins => ${computerPlay} beats ${userPlay}
-    if (playerChoice === computerChoice) {
-      return `It's a tie!`
+  
+    if (userWins > 4 || computerWins >4){
+      document.getElementById('result').innerText = `Game is Over!`
+    }
+    
+    else if(playerChoice === computerChoice) {
+      document.getElementById('text').innerText = `It\s a tie!`
+      document.getElementById('result').innerText = `Computer: ${computerWins} Player: ${userWins}`
     } else if (playerChoice === 'Rock' && computerChoice === 'Scissors'){
-      return `You Win!`
+      document.getElementById('text').innerText = `You Win!`
+      userWins += 1
+      document.getElementById('result').innerText = `Computer: ${computerWins} Player: ${userWins}`
     } else if (playerChoice === 'Paper' && computerChoice === 'Rock'){
-      return `You Win!`
+      document.getElementById('text').innerText = `You Win!`
+      userWins += 1
+      document.getElementById('result').innerText = `Computer: ${computerWins} Player: ${userWins}`
     } else if (playerChoice === 'Scissors' && computerChoice === 'Paper'){
-      return `You Win!`
+      document.getElementById('text').innerText = `You Win!`
+      userWins += 1
+      document.getElementById('result').innerText = `Computer: ${computerWins} Player: ${userWins}`
     }else {
-      return `You Lose!`
+      document.getElementById('text').innerText = `You Lose!`
+      computerWins += 1
+      document.getElementById('result').innerText = `Computer: ${computerWins} Player: ${userWins}`
     }
   }
+
+
+
+
+
+
+
+
 
   
   function game(){
@@ -88,7 +122,7 @@
     }
   }
 
-  console.log(game())
+  // console.log(game())
     
 
   </script>
